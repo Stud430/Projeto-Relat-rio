@@ -1,0 +1,17 @@
+
+.form-row{
+margin: 0 auto;
+width: 500%; /* Valor da Largura */
+float: center;
+}
+
+.form-group{
+margin: 0 auto;
+width: 50%; /* Valor da Largura */
+float: center;
+}
+
+.data{
+	margin: 0 auto;
+	width: 50%;
+}
