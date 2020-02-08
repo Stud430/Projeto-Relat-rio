@@ -21,7 +21,7 @@
 
 <?php
   //cria consulta SQL
-  $listagem = "SELECT * FROM relatorio";
+  $listagem = "SELECT * FROM relatorio order by created";
 
   $consulta = $conectar->prepare ($listagem);
   $consulta->execute();
@@ -37,7 +37,7 @@
   <meta charset="utf-8">
   <title>Relatórios</title>
 
-  <link rel="stylesheet" href="css/styleRelatorios.css">
+  <!-- <link rel="stylesheet" href="css/styleRelatorios.css"> -->
   <!-- Link Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -61,10 +61,48 @@
   </div>
 </nav>
 
+<style>
+
+  div.listagem{
+    float: center;
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+
+  div.listando{
+    position: relative;
+    width: 200px;
+    height: 160px;
+    float: left;
+  }
+
+  a.btn {
+    position: relative;
+    width: 30px;
+    padding-right: 7px;
+    padding-left: 4px;
+  }
+
+  img.botaoCancelar {
+  /*  position: relative; */
+    width: 32px;
+  /*  padding-right: 5px; */
+  }
+  img.botaoEditar {
+  /*  position: relative; */
+    width: 32px;
+  /*  padding-left: 5px; */
+  }
+
+
+</style>
+
+
+
 </head>
 
 <body>
-<div class="form-group">
+
 <br><br>
 <center>
   <label>
@@ -73,13 +111,67 @@
     </h3>
   </label>
 <br>
-
-  <div class="col-2">
-    <p>
-      <label> <?php echo $data; ?> </label>
-    </p>   
-  </div>
+  
+  <p>
+    <label> <?php echo $data; ?> </label>
+  </p> 
 </center>
+<hr>
+
+<?php
+  while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+?>
+<div class="listagem">
+  <div class="listando">  
+    <br>
+      <a href="detalhe.php?id=<?php echo $linha['id'] ?>">
+        <img src="../img/icon_contato.png">
+      </a>
+    <br> 
+      <b>
+       <?php echo $linha["titulo"] ?>
+      </b> 
+    <br> <?php echo $linha["data_desc"] ?> 
+    <br> 
+    <a class="btn btn-link" href="../model/deletar.php?id=<?php echo $linha["id"]?>" role="button" name="deletar">
+      <img class="botaoCancelar" src="../img/icon_cancelar.png">
+    </a>
+    <a class="btn btn-link" href="index_atualizar.php?id=<?php echo $linha["id"]?>" role="button" name="editar">
+      <img class="botaoEditar" src="../img/icon_editar.png">
+    </a>
+
+<!--    <input type="hidden" name="id" value="<?php echo $linha["id"] ?>"> -->
+  </div>     
+</div>
+<?php
+  }
+?> 
+
+<?php include_once("../_incluir/rodape.php"); ?>
+</body>
+
+</html>
+
+<!--
+  <?php
+  while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
+?>
+<tr>
+    <td class="relatorios">
+        <br><a href="detalhe.php?codigo=<?php echo $linha['id'] ?>">
+          <img src="../img/icon_contato.png">
+        </a>
+        <br> <b><?php echo $linha["titulo"] ?></b> 
+        <br> <?php echo $linha["data_desc"] ?> 
+    </td>
+</tr>
+<?php
+  }
+?> 
+-->
+
+
+<!--
 
 <?php
   while($linha = $consulta->fetch(PDO::FETCH_ASSOC)) {
@@ -97,8 +189,7 @@
   </ul>
 <?php
   }
-?> 
+?>
 
-</body>
 
-</html>
+  -->

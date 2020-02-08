@@ -1,5 +1,10 @@
 
 <?php
+  include '../banco/conexao.php';
+  $conectar = getConnection();
+?>
+
+<?php
   // Determinar TimeZone => https://www.php.net/manual/pt_BR/timezones.america.php
   date_default_timezone_set('America/Sao_Paulo');
   setlocale(LC_TIME, "pt_BR");
@@ -11,14 +16,26 @@
   $dia = $agora["mday"];
 
   $data = $dia . " de " . $mes . " de "  . $ano;
-  //$data_desc = $dia . "/" . $mes . "/" . $ano;
+?>
+
+<?php
+	// pega o ID da URL
+	$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+
+	// Consulta a tabela de Login
+    $consulta = "SELECT * FROM relatorio WHERE id = :id ";
+
+	$visualizar = $conectar->prepare($consulta);
+	$visualizar->execute(array(':id' => $id));
+
+	$linha = $visualizar->fetch(PDO::FETCH_ASSOC)
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Criar Relatório</title>
+  <title>Editar Relatório</title>
 
   
   <!-- Link Bootstrap -->
@@ -65,13 +82,18 @@
     float: center;
     width: 500px;
   }
+  /*
+  div.text-area{
+    padding-left: 50px; 
+  }
+  */
 </style>
 
 </head>
 
 <body> 
 
-<form action="../model/cadastrar.php" method="post">
+<form action="../model/editar.php" method="post">
     <!-- <br><label><h3> Login </h3></label><br> -->
 
 
@@ -80,7 +102,7 @@
   <div class="data">
     <label>
       <h3> 
-        Fazer Relatório 
+        Editar Relatório 
       </h3>
     </label>
     <br>  
@@ -94,7 +116,7 @@
     <div class="col-2">
       <p>
         <label>Título</label>
-        <input type="text" name="titulo" class="form-control">
+        <input type="text" name="titulo" id="titulo" value="<?php echo $linha["titulo"] ?>" class="form-control">
       </p>   
     </div>
   </div>
@@ -103,74 +125,24 @@
     <div class="col-2">
       <p>
         <label>Descrição</label>
-        <textarea name="descricao" rows="6" cols="35" class="form-control"></textarea>
+        <textarea name="descricao" id="descricao" rows="6" cols="35" class="form-control">
+          	<?php echo $linha["descricao"]; ?>
+        </textarea>
       </p>    
     </div> <!-- FIM do col-2 -->
   </div> <!-- FIM do form-row -->
 
 </div> <!-- FIM do form-group -->
 
+<input type="hidden" name="id" id="id" value="<?php echo $linha["id"] ?>">
+
 <center>
     <p>
-      <button type="submit" class="btn btn-secondary" name="Salvar" value="salvar">
-        Salvar
-      </button>
-      <button type="reset" class="btn btn-secondary" name="Limpar" value="limpar">
-        Limpar
+      <button type="submit" class="btn btn-secondary" name="editar" value="editar">
+        Editar
       </button>
     </p>
 </center>
-<?php
-  /*
-?>
-    <?php
-        // Determinar TimeZone => https://www.php.net/manual/pt_BR/timezones.america.php
-        date_default_timezone_set('America/Sao_Paulo');
-        setlocale(LC_TIME, "pt_BR");
-            
-        $agora = getdate();
-
-        $ano = $agora["year"];
-        $mes = strftime("%B");  // => https://www.php.net/manual/pt_BR/function.strftime.php
-        $dia = $agora["mday"];
-
-        $data = $dia . " de " . $mes . " de "  . $ano;
-    ?>  
-
-    <div class="col-2">
-      <p>
-        <label>Hoje é <?php echo $data; ?> </label>
-    </p>   
-    </div>
-
-  <div class="form-row">
-    <div class="col-2">
-      <p>
-        <label>Título</label>
-        <input type="text" name="titulo" size="50" placeholder="Título" class="form-control"></p>   
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="col-2">
-      <p>
-        <label>Descrição</label>
-        <textarea name="desc" rows="6" cols="30" class="form-control" placeholder="Descreva aqui seu relatório"></textarea>
-    </p>    
-    </div>
-  </div>  
-  
-  <div class="form-row">
-    <p>
-      <button type="submit" class="btn btn-secondary" name="Salvar" value="salvar">Salvar</button>
-      <button type="reset" class="btn btn-secondary" name="Limpar" value="limpar">Limpar</button>
-    </p>
-  </div>
-
-<?php
-  */
-?>
-
 </form> 
 
 <?php include_once("../_incluir/rodape.php"); ?>
