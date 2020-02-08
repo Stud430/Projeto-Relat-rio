@@ -93,7 +93,10 @@
     width: 32px;
   /*  padding-left: 5px; */
   }
-
+  img.botaoRelatorio {
+    width: 32px;
+    height: 32px;
+  }
 
 </style>
 
@@ -133,12 +136,18 @@
       </b> 
     <br> <?php echo $linha["data_desc"] ?> 
     <br> 
+    
     <a class="btn btn-link" href="../model/deletar.php?id=<?php echo $linha["id"]?>" role="button" name="deletar">
       <img class="botaoCancelar" src="../img/icon_cancelar.png">
     </a>
+
     <a class="btn btn-link" href="index_atualizar.php?id=<?php echo $linha["id"]?>" role="button" name="editar">
       <img class="botaoEditar" src="../img/icon_editar.png">
     </a>
+
+    <a class="btn btn-link" href="gerar_pdf.php?id=<?php echo $linha["id"]?>" role="button" name="relatorio">
+      <img class="botaoRelatorio" src="../img/icon_relatorio.png">
+    </a> 
 
 <!--    <input type="hidden" name="id" value="<?php echo $linha["id"] ?>"> -->
   </div>     

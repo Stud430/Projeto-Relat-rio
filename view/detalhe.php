@@ -115,6 +115,10 @@ div.botao{
     width: 32px;
     height: 32px;
   }
+  img.botaoRelatorio {
+    width: 32px;
+    height: 32px;
+  }
 </style>
 
 
@@ -136,7 +140,7 @@ div.botao{
     <p></p>
     <b>
        <?php 
-          echo $linha["titulo"]; 
+          echo "ID: " . $linha["id"] . "<br>" . $linha["titulo"]; 
        ?>
     </b>
     <br>
@@ -168,6 +172,9 @@ div.botao{
         </a>
         <a class="btn btn-link" href="index_atualizar.php?id=<?php echo $linha["id"]?>" role="button" name="editar">
           <img class="botaoEditar" src="../img/icon_editar.png">
+        </a>
+        <a class="btn btn-link" href="gerar_pdf.php?id=<?php echo $linha["id"]?>" role="button" name="relatorio">
+          <img class="botaoRelatorio" src="../img/icon_relatorio.png">
         </a> 
 </div>
 
