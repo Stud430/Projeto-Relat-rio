@@ -87,6 +87,17 @@
     padding-left: 50px; 
   }
   */
+  div.descricao{
+    width:1998px;
+    height:100px;
+    display: flex;
+    border: 0px solid black;
+    padding-top: 0px;
+    padding-right: 30px;
+    padding-bottom: 05px;
+    padding-left: 0px;
+
+  }
 </style>
 
 </head>
@@ -121,6 +132,7 @@
     </div>
   </div>
   
+<div class="descricao">  
   <div class="form-row">  
     <div class="col-2">
       <p>
@@ -131,11 +143,13 @@
       </p>    
     </div> <!-- FIM do col-2 -->
   </div> <!-- FIM do form-row -->
+</div>
 
 </div> <!-- FIM do form-group -->
 
 <input type="hidden" name="id" id="id" value="<?php echo $linha["id"] ?>">
 
+<br><br><br><br>
 <center>
     <p>
       <button type="submit" class="btn btn-secondary" name="editar" value="editar">
