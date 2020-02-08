@@ -6,8 +6,8 @@
 
 <?php
     //$sql = 'INSERT INTO produto (descricao,qtd,valor) VALUES (:desc,:qtd,:valor)';
-    $sql = 'INSERT INTO relatorio (titulo,descricao,created,data_desc) 
-            VALUES (:titulo,:descricao,:created,:data_desc)';
+    $sql = 'INSERT INTO relatorio (titulo,descricao,created,data_desc, editado_em) 
+            VALUES (:titulo,:descricao,:created,:data_desc, :editado_em)';
 
     date_default_timezone_set('America/Sao_Paulo');
     setlocale(LC_TIME, "pt_BR");
@@ -21,7 +21,9 @@
 
     $titulo = $_POST["titulo"];
     $descricao = $_POST["descricao"];
-    $data = date("d.m.y");  
+    $data = date("d.m.y"); // Se no banco "created" for do tipo "date"
+    $editado_em = " ";
+
     // https://www.youtube.com/watch?v=8BHWt8zJg48
     // https://stackoverflow.com/questions/51024986/uncaught-error-call-to-undefined-function-now/51025001
 
@@ -34,6 +36,7 @@
     $stmt->bindParam(':titulo', $titulo);
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':data_desc', $data_desc);
+    $stmt->bindParam(':editado_em', $editado_em);
 
     if($stmt->execute()){
         echo 'Salvo com sucesso!';
