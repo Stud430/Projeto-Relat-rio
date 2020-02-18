@@ -21,7 +21,21 @@
 
 <?php
   //cria consulta SQL
-  $listagem = "SELECT * FROM relatorio order by created";
+  //$listagem = "SELECT * FROM relatorio order by created";
+
+// Consulta ao banco de dados
+  $listagem = "SELECT * ";
+  $listagem .= "FROM relatorio ";
+  if ( isset($_GET["buscar"]) ) {
+      $procurar = $_GET["buscar"];
+      $listagem .= "WHERE titulo LIKE '%{$procurar}%' ";
+  }/* elseif ( isset($_GET["data"])) {
+      $procurar = $_GET["data"];
+      $listagem .= "WHERE created = $procurar ";
+  } */
+
+
+
 
   $consulta = $conectar->prepare ($listagem);
   $consulta->execute();
@@ -57,8 +71,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="relatorios.php">Relatórios</a>
       </li>
-    </ul>
+    </ul>    
   </div>
+  
+  <form action="relatorios.php" method="GET" class="form-inline my-2 my-lg-0">
+    <div class="form-group">
+        <input class="form-control" type="text" name="buscar" placeholder="titulo"/>
+    <!--    <input class="form-control" type="text" name="data" placeholder="xxxx-xx-xx"/> -->
+    </div>
+    <div class=text-right>
+        <input type="image" src="../img/botao_search.png" class="btn btn-default" width="50" height="40" />
+    </div>
+  </form>
+
 </nav>
 
 <style>
@@ -160,6 +185,22 @@
 </body>
 
 </html>
+
+<!--
+
+<?php
+  //cria consulta SQL
+  $listagem = "SELECT * FROM relatorio order by created";
+
+  $consulta = $conectar->prepare ($listagem);
+  $consulta->execute();
+
+  if (!$consulta) {
+    die("Erro no Banco");
+  }
+?>
+
+-->  
 
 <!--
   <?php
