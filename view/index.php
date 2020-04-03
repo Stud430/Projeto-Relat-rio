@@ -7,7 +7,7 @@
   $agora = getdate();
 
   $ano = $agora["year"];
-  $mes = strftime("%B");  // => https://www.php.net/manual/pt_BR/function.strftime.php
+  $mes = utf8_encode(strftime("%B"));  // => https://www.php.net/manual/pt_BR/function.strftime.php
   $dia = $agora["mday"];
 
   $data = $dia . " de " . $mes . " de "  . $ano;
@@ -21,11 +21,16 @@
   <title>Criar Relatório</title>
 
   
+  <script  src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
   <!-- Link Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
   <link rel="stylesheet" href="css/bootnavbar.css">
+
+  <script type="text/javascript" src="../control/jquery-3.4.1.js" ></script>
+  <script src="control/sweetalert.js"></script>
+  <!-- https://www.youtube.com/watch?v=oCPAQv_mqoc -->
 
 <!-- Image and text -->               <!-- https://color.adobe.com/pt/create -->
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FFF0C7;"> 
@@ -73,8 +78,6 @@
 
 <form action="../model/cadastrar.php" method="post">
     <!-- <br><label><h3> Login </h3></label><br> -->
-
-
 <br><br>
 <center>
   <div class="data">
@@ -112,14 +115,23 @@
 
 <center>
     <p>
-      <button type="submit" class="btn btn-secondary" name="Salvar" value="salvar">
+      <button type="submit" class="btn btn-secondary" name="Salvar" id="salvar" value="salvar">
         Salvar
       </button>
-      <button type="reset" class="btn btn-secondary" name="Limpar" value="limpar">
+      <button type="reset" class="btn btn-secondary" name="Limpar" id="limpar" value="limpar">
         Limpar
       </button>
     </p>
 </center>
+
+</form> 
+
+<?php include_once("../_incluir/rodape.php"); ?>
+</body>
+
+</html>
+
+
 <?php
   /*
 ?>
@@ -170,10 +182,3 @@
 <?php
   */
 ?>
-
-</form> 
-
-<?php include_once("../_incluir/rodape.php"); ?>
-</body>
-
-</html>

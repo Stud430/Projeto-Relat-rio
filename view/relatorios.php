@@ -12,7 +12,7 @@
   $agora = getdate();
 
   $ano = $agora["year"];
-  $mes = strftime("%B");  // => https://www.php.net/manual/pt_BR/function.strftime.php
+  $mes = utf8_encode(strftime("%B"));  // => https://www.php.net/manual/pt_BR/function.strftime.php
   $dia = $agora["mday"];
 
   $data = $dia . " de " . $mes . " de "  . $ano;
@@ -83,6 +83,13 @@
         <input type="image" src="../img/botao_search.png" class="btn btn-default" width="50" height="40" />
     </div>
   </form>
+
+
+  <div class=text-right>
+    <a href="caderno_pdf.php">
+      <input type="image" src="../img/icon_caderno.png" class="btn btn-default" width="50" height="40" />
+    </a>  
+  </div>
 
 </nav>
 
@@ -174,7 +181,6 @@
       <img class="botaoRelatorio" src="../img/icon_relatorio.png">
     </a> 
 
-<!--    <input type="hidden" name="id" value="<?php echo $linha["id"] ?>"> -->
   </div>     
 </div>
 <?php

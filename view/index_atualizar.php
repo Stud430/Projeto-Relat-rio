@@ -12,7 +12,7 @@
   $agora = getdate();
 
   $ano = $agora["year"];
-  $mes = strftime("%B");  // => https://www.php.net/manual/pt_BR/function.strftime.php
+  $mes = utf8_encode(strftime("%B"));  // => https://www.php.net/manual/pt_BR/function.strftime.php
   $dia = $agora["mday"];
 
   $data = $dia . " de " . $mes . " de "  . $ano;
